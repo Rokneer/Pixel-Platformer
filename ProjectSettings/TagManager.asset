@@ -11,12 +11,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Player
+  - Enemy
+  - PlayerHitbox
+  - EnemyHitBox
+  - GroundDetection
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: Decorations
     uniqueID: 687069283
+    locked: 0
+  - name: Enemies
+    uniqueID: 2313386271
     locked: 0
   - name: Player
     uniqueID: 3312071885
