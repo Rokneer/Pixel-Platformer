@@ -9,7 +9,6 @@ public class Demon : MonoBehaviour
     private TouchingDirections touchingDirections;
     private Damageable damageable;
 
-    public DetectionZone attackZone;
     public DetectionZone cliffZone;
     public float walkSpeed = 3f;
     public float walkStopRate = 0.05f;
@@ -42,17 +41,6 @@ public class Demon : MonoBehaviour
             _walkDirection = value;
         }
     }
-
-    public bool _hasTarget = false;
-    public bool HasTarget
-    {
-        get => _hasTarget;
-        set
-        {
-            _hasTarget = value;
-            animator.SetBool("hasTarget", value);
-        }
-    }
     public bool CanMove => animator.GetBool("canMove");
 
     #region Lifecycle
@@ -62,11 +50,6 @@ public class Demon : MonoBehaviour
         animator = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
         damageable = GetComponent<Damageable>();
-    }
-
-    void Update()
-    {
-        HasTarget = attackZone.detectedColliders.Count > 0;
     }
 
     void FixedUpdate()

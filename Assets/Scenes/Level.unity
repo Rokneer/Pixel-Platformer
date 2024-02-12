@@ -104867,7 +104867,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.4099994, y: -0.46, z: -10}
+  m_LocalPosition: {x: -6.4099994, y: -0.491, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -136802,7 +136802,7 @@ Transform:
   m_GameObject: {fileID: 1219921082}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.4099994, y: -0.46, z: -10}
+  m_LocalPosition: {x: -6.4099994, y: -0.491, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -136885,7 +136885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1465128532311642725, guid: 1bd8e79122d6f2043bcef487bb72d37c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.46
+      value: -0.491
       objectReference: {fileID: 0}
     - target: {fileID: 1465128532311642725, guid: 1bd8e79122d6f2043bcef487bb72d37c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -136923,9 +136923,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6131727477515945976, guid: 1bd8e79122d6f2043bcef487bb72d37c, type: 3}
+      propertyPath: m_Size.y
+      value: 0.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 6131727477515945976, guid: 1bd8e79122d6f2043bcef487bb72d37c, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.11442691
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171396291642485027, guid: 1bd8e79122d6f2043bcef487bb72d37c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.572
+      objectReference: {fileID: 0}
     - target: {fileID: 6615202442924642260, guid: 1bd8e79122d6f2043bcef487bb72d37c, type: 3}
       propertyPath: jumpImpulse
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9016684305503152823, guid: 1bd8e79122d6f2043bcef487bb72d37c, type: 3}
+      propertyPath: m_Size.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9016684305503152823, guid: 1bd8e79122d6f2043bcef487bb72d37c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9016684305503152823, guid: 1bd8e79122d6f2043bcef487bb72d37c, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -136985,7 +137009,8 @@ PrefabInstance:
       value: Demon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7440634299477108415, guid: 430be7e1c3c8c53428445a88455fbc75, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 430be7e1c3c8c53428445a88455fbc75, type: 3}
