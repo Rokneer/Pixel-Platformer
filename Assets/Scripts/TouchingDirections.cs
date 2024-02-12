@@ -1,11 +1,10 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Animator), (typeof(CapsuleCollider2D)))]
+[RequireComponent(typeof(Animator), (typeof(Collider2D)))]
 public class TouchingDirections : MonoBehaviour
 {
-    private Rigidbody2D rb;
     private Animator animator;
-    private CapsuleCollider2D touchingCollider;
+    private Collider2D touchingCollider;
 
     public ContactFilter2D castFilter;
     public float groundDistance = 0.05f;
@@ -57,7 +56,6 @@ public class TouchingDirections : MonoBehaviour
     #region Lifecycle
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         touchingCollider = GetComponent<CapsuleCollider2D>();
     }

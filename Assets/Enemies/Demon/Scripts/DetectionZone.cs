@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class DetectionZone : MonoBehaviour
 {
-    Collider2D col;
+    private Collider2D col;
 
     public UnityEvent noCollidersRemain;
     public List<Collider2D> detectedColliders = new();

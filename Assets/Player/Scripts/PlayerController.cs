@@ -6,12 +6,12 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(TouchingDirections), typeof(Damageable))]
 public class PlayerController : MonoBehaviour
 {
-    Vector2 moveInput;
-    Rigidbody2D rb;
-    Animator animator;
-    TrailRenderer trail;
-    TouchingDirections touchingDirections;
-    Damageable damageable;
+    private Vector2 moveInput;
+    private Rigidbody2D rb;
+    private Animator animator;
+    private TrailRenderer trail;
+    private TouchingDirections touchingDirections;
+    private Damageable damageable;
 
     public float walkSpeed = 5f;
     public float airSpeed = 4f;
@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     public float dashImpulse = 20f;
     public float dashTime = 0.2f;
     public float dashCooldown = 1.2f;
+    public float coyoteTime = 0.2f;
+    public float jumpBufferTime = 0.2f;
 
     [SerializeField]
     private bool _isMoving = false;
@@ -29,19 +31,6 @@ public class PlayerController : MonoBehaviour
         {
             _isMoving = value;
             animator.SetBool("isMoving", value);
-        }
-    }
-    public float CurrentMoveSpeed
-    {
-        get
-        {
-            if (IsMoving && CanMove && !touchingDirections.IsOnWall)
-            {
-                if (touchingDirections.IsGrounded)
-                    return walkSpeed;
-                return airSpeed;
-            }
-            return 0;
         }
     }
     public bool _isFacingRight = true;
@@ -71,7 +60,32 @@ public class PlayerController : MonoBehaviour
         get => _canDash;
         set => _canDash = IsAlive && value;
     }
-
+    public float _coyoteTimeCounter;
+    public float CoyoteTimeCounter
+    {
+        get => _coyoteTimeCounter;
+        set => _coyoteTimeCounter = touchingDirections.IsGrounded ?
+            coyoteTime : Mathf.Clamp(value, 0f, coyoteTime);
+    }
+    public float _jumpBufferCounter;
+    public float JumpBufferCounter
+    {
+        get => _jumpBufferCounter;
+        set => _jumpBufferCounter =  Mathf.Clamp(value, 0f, jumpBufferTime);
+    }
+    public float CurrentMoveSpeed
+    {
+        get
+        {
+            if (IsMoving && CanMove && !touchingDirections.IsOnWall)
+            {
+                if (touchingDirections.IsGrounded)
+                    return walkSpeed;
+                return airSpeed;
+            }
+            return 0;
+        }
+    }
     public bool CanMove => animator.GetBool("canMove");
     public bool IsAlive => animator.GetBool("isAlive");
 
@@ -87,11 +101,16 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        CoyoteTimeCounter -= Time.time;
+        if(touchingDirections.IsGrounded)
+            JumpBufferCounter -= Time.time;
         if (!IsDashing && !damageable.LockVelocity)
             rb.velocity = new(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
         animator.SetFloat("yVelocity", rb.velocity.y);
     }
+    #endregion
 
+    #region Functions
     private void SetFacingDirection(Vector2 moveInput)
     {
         if (moveInput.x > 0 && !IsFacingRight)
@@ -101,9 +120,7 @@ public class PlayerController : MonoBehaviour
         else if (moveInput.x == 0)
             return;
     }
-    #endregion
 
-    #region Functions
     public void OnMove(InputAction.CallbackContext context)
     {
         if (IsAlive)
@@ -118,11 +135,25 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && touchingDirections.IsGrounded && CanMove)
+        if(CanMove)
         {
-            animator.SetTrigger("jump");
-            rb.velocity = new(rb.velocity.x, jumpImpulse);
+            
+            if (context.started)
+            {
+                JumpBufferCounter = jumpBufferTime;
+            }
+            if (CoyoteTimeCounter > 0f && JumpBufferCounter > 0f)
+            {
+                animator.SetTrigger("jump");
+                rb.velocity = new(rb.velocity.x, jumpImpulse);
+                JumpBufferCounter = 0f;
+            }
+            if (context.canceled && rb.velocity.y > 0) {
+                rb.velocity = new(rb.velocity.x, rb.velocity.y * 0.6f);
+                CoyoteTimeCounter = 0f;
+            } 
         }
+
     }
 
     public void OnDash(InputAction.CallbackContext context)

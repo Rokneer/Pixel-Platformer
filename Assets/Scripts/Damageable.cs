@@ -4,9 +4,10 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Animator))]
 public class Damageable : MonoBehaviour
 {
-    public UnityEvent<int, Vector2> damageableHit;
-    Animator animator;
+    private Animator animator;
 
+    public UnityEvent<int, Vector2> damageableHit;
+    
     [SerializeField]
     private bool isInvicible = false;
     private float timeSinceHit = 0;

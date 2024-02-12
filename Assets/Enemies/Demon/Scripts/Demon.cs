@@ -4,10 +4,10 @@ using UnityEngine;
 [RequireComponent(typeof(TouchingDirections), typeof(Damageable))]
 public class Demon : MonoBehaviour
 {
-    Rigidbody2D rb;
-    Animator animator;
-    TouchingDirections touchingDirections;
-    Damageable damageable;
+    private Rigidbody2D rb;
+    private Animator animator;
+    private TouchingDirections touchingDirections;
+    private Damageable damageable;
 
     public DetectionZone attackZone;
     public DetectionZone cliffZone;
