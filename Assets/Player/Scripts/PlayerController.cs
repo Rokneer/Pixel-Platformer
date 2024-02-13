@@ -136,8 +136,7 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         if(CanMove)
-        {
-            
+        { 
             if (context.started)
             {
                 JumpBufferCounter = jumpBufferTime;
