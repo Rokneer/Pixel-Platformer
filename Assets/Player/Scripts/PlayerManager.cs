@@ -1,13 +1,19 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Damageable))]
 public class PlayerManager : MonoBehaviour
 {
     private Damageable damageable;
 
-    public float keys;
-    public float energy;
-    public float coins;
+    public Image healthImage;
+    public List<Sprite> healthSprites = new();
+    public Image energyImage;
+    public List<Sprite> energySprites = new();
+    public Image keyImage;
+    public TextMeshProUGUI coinText;
 
     #region Lifecycle
     private void Awake()
@@ -26,22 +32,19 @@ public class PlayerManager : MonoBehaviour
                 Debug.Log("Picked up a " + obj.tag);
                 return true;
             case "Key":
-                keys++;
                 obj.GetComponent<Key>().AddKey();
                 Debug.Log("Picked up a " + obj.tag);
                 return true;
             case "Energy":
-                energy++;
                 obj.GetComponent<Energy>().AddEnergy();
                 Debug.Log("Picked up a " + obj.tag);
                 return true;
             case "Coin":
-                coins++;
                 obj.GetComponent<Coin>().AddCoin();
                 Debug.Log("Picked up a " + obj.tag);
                 return true;
             default:
-                Debug.LogError($"ERROR: No handler implemented for tag {obj.tag}");
+                Debug.LogWarning($"WARNING: No handler implemented for tag {obj.tag}");
                 return false;
         }
     }
