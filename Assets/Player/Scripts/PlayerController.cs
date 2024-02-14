@@ -40,7 +40,9 @@ public class PlayerController : MonoBehaviour
         set
         {
             if (_isFacingRight != value)
+            {
                 transform.localScale *= new Vector2(-1, 1);
+            }
             _isFacingRight = value;
         }
     }
@@ -64,14 +66,16 @@ public class PlayerController : MonoBehaviour
     public float CoyoteTimeCounter
     {
         get => _coyoteTimeCounter;
-        set => _coyoteTimeCounter = touchingDirections.IsGrounded ?
-            coyoteTime : Mathf.Clamp(value, 0f, coyoteTime);
+        set =>
+            _coyoteTimeCounter = touchingDirections.IsGrounded
+                ? coyoteTime
+                : Mathf.Clamp(value, 0f, coyoteTime);
     }
     public float _jumpBufferCounter;
     public float JumpBufferCounter
     {
         get => _jumpBufferCounter;
-        set => _jumpBufferCounter =  Mathf.Clamp(value, 0f, jumpBufferTime);
+        set => _jumpBufferCounter = Mathf.Clamp(value, 0f, jumpBufferTime);
     }
     public float CurrentMoveSpeed
     {
@@ -80,7 +84,9 @@ public class PlayerController : MonoBehaviour
             if (IsMoving && CanMove && !touchingDirections.IsOnWall)
             {
                 if (touchingDirections.IsGrounded)
+                {
                     return walkSpeed;
+                }
                 return airSpeed;
             }
             return 0;
@@ -99,13 +105,21 @@ public class PlayerController : MonoBehaviour
         damageable = GetComponent<Damageable>();
     }
 
-    void FixedUpdate()
+    private void Update()
     {
-        CoyoteTimeCounter -= Time.time;
-        if(touchingDirections.IsGrounded)
-            JumpBufferCounter -= Time.time;
+        CoyoteTimeCounter -= Time.deltaTime;
+        if (touchingDirections.IsGrounded)
+        {
+            JumpBufferCounter -= Time.deltaTime;
+        }
+    }
+
+    private void FixedUpdate()
+    {
         if (!IsDashing && !damageable.LockVelocity)
+        {
             rb.velocity = new(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
+        }
         animator.SetFloat("yVelocity", rb.velocity.y);
     }
     #endregion
@@ -114,11 +128,17 @@ public class PlayerController : MonoBehaviour
     private void SetFacingDirection(Vector2 moveInput)
     {
         if (moveInput.x > 0 && !IsFacingRight)
+        {
             IsFacingRight = true;
+        }
         else if (moveInput.x < 0 && IsFacingRight)
+        {
             IsFacingRight = false;
+        }
         else if (moveInput.x == 0)
+        {
             return;
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -130,13 +150,15 @@ public class PlayerController : MonoBehaviour
             SetFacingDirection(moveInput);
         }
         else
+        {
             IsMoving = false;
+        }
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if(CanMove)
-        { 
+        if (CanMove)
+        {
             if (context.started)
             {
                 JumpBufferCounter = jumpBufferTime;
@@ -147,18 +169,20 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new(rb.velocity.x, jumpImpulse);
                 JumpBufferCounter = 0f;
             }
-            if (context.canceled && rb.velocity.y > 0) {
+            if (context.canceled && rb.velocity.y > 0)
+            {
                 rb.velocity = new(rb.velocity.x, rb.velocity.y * 0.6f);
                 CoyoteTimeCounter = 0f;
-            } 
+            }
         }
-
     }
 
     public void OnDash(InputAction.CallbackContext context)
     {
         if (context.started && CanDash && IsAlive)
+        {
             StartCoroutine(Dash());
+        }
     }
 
     private IEnumerator Dash()

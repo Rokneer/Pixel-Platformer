@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Health
+  - Key
+  - Energy
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -49,6 +54,9 @@ TagManager:
     locked: 0
   - name: Enemies
     uniqueID: 2313386271
+    locked: 0
+  - name: PickUps
+    uniqueID: 1136160725
     locked: 0
   - name: Player
     uniqueID: 3312071885

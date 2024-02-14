@@ -5,7 +5,7 @@ public class Attack : MonoBehaviour
     public int attackDamage = 1;
     public Vector2 knockback = Vector2.zero;
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<Damageable>(out Damageable damageable))
         {
@@ -15,7 +15,9 @@ public class Attack : MonoBehaviour
                     : new Vector2(-knockback.x, knockback.y);
             bool gotHit = damageable.Hit(attackDamage, deliveredKnockback);
             if (gotHit)
+            {
                 Debug.Log(collision.name + " got hit for " + attackDamage);
+            }
         }
     }
 }

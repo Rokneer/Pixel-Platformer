@@ -1,10 +1,10 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Animator), (typeof(Collider2D)))]
+[RequireComponent(typeof(Animator), (typeof(CapsuleCollider2D)))]
 public class TouchingDirections : MonoBehaviour
 {
     private Animator animator;
-    private Collider2D touchingCollider;
+    private CapsuleCollider2D touchingCollider;
 
     public ContactFilter2D castFilter;
     public float groundDistance = 0.05f;

@@ -56,6 +56,6 @@
     "temp/": true,
     "Temp/": true
   },
-  "dotnet.defaultSolution": "Pixel Platformer.sln",
+  "dotnet.defaultSolution": "Pixel-Platformer.sln",
   "workbench.colorTheme": "eppz!"
 }

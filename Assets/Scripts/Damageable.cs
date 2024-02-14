@@ -7,7 +7,7 @@ public class Damageable : MonoBehaviour
     private Animator animator;
 
     public UnityEvent<int, Vector2> damageableHit;
-    
+
     [SerializeField]
     private bool isInvicible = false;
     private float timeSinceHit = 0;
@@ -30,7 +30,9 @@ public class Damageable : MonoBehaviour
         {
             _health = value;
             if (_health <= 0)
+            {
                 IsAlive = false;
+            }
         }
     }
 
@@ -52,12 +54,12 @@ public class Damageable : MonoBehaviour
     }
 
     #region Lifecycle
-    void Awake()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
     }
 
-    void Update()
+    private void Update()
     {
         if (isInvicible)
         {

@@ -33,10 +33,18 @@ public class Demon : MonoBehaviour
                     gameObject.transform.localScale.x * -1,
                     gameObject.transform.localScale.y
                 );
-                if (value == WalkableDirection.Right)
-                    walkDirectionVector = Vector2.right;
-                else if (value == WalkableDirection.Left)
-                    walkDirectionVector = Vector2.left;
+                switch (value)
+                {
+                    case WalkableDirection.Right:
+                        walkDirectionVector = Vector2.right;
+                        break;
+                    case WalkableDirection.Left:
+                        walkDirectionVector = Vector2.left;
+                        break;
+                    default:
+                        Debug.LogError($"ERROR: Invalid walkable direction of type {value}");
+                        break;
+                }
             }
             _walkDirection = value;
         }
@@ -55,17 +63,14 @@ public class Demon : MonoBehaviour
     void FixedUpdate()
     {
         if (touchingDirections.IsGrounded && touchingDirections.IsOnWall)
+        {
             FlipDirection();
-
+        }
         if (!damageable.LockVelocity)
         {
-            if (CanMove)
-                rb.velocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.velocity.y);
-            else
-                rb.velocity = new Vector2(
-                    Mathf.Lerp(rb.velocity.x, 0, walkStopRate),
-                    rb.velocity.y
-                );
+            rb.velocity = CanMove
+                ? new Vector2(walkSpeed * walkDirectionVector.x, rb.velocity.y)
+                : new Vector2(Mathf.Lerp(rb.velocity.x, 0, walkStopRate), rb.velocity.y);
         }
     }
     #endregion
@@ -81,7 +86,7 @@ public class Demon : MonoBehaviour
                 WalkDirection = WalkableDirection.Right;
                 break;
             default:
-                Debug.LogError("Invalid walkable direction");
+                Debug.LogError($"ERROR: Invalid walkable direction of type {WalkDirection}");
                 break;
         }
     }
