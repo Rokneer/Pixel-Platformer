@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Animator), typeof(Health))]
 public class Damageable : MonoBehaviour
 {
     private Animator animator;
+    private Health healthPool;
 
     public UnityEvent<int, Vector2> damageableHit;
 
@@ -13,40 +14,6 @@ public class Damageable : MonoBehaviour
     private float timeSinceHit = 0;
     public float invicibilityTime = 0.25f;
 
-    [SerializeField]
-    private int _maxHealth = 3;
-    public int MaxHealth
-    {
-        get => _maxHealth;
-        set => _maxHealth = value;
-    }
-
-    [SerializeField]
-    private int _health = 3;
-    public int Health
-    {
-        get => _health;
-        set
-        {
-            _health = value;
-            if (_health <= 0)
-            {
-                IsAlive = false;
-            }
-        }
-    }
-
-    [SerializeField]
-    private bool _isAlive = true;
-    public bool IsAlive
-    {
-        get => _isAlive;
-        set
-        {
-            _isAlive = value;
-            animator.SetBool("isAlive", value);
-        }
-    }
     public bool LockVelocity
     {
         get => animator.GetBool("lockVelocity");
@@ -57,6 +24,7 @@ public class Damageable : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        healthPool = GetComponent<Health>();
     }
 
     private void Update()
@@ -74,9 +42,9 @@ public class Damageable : MonoBehaviour
     #endregion
     public bool Hit(int damage, Vector2 knockback)
     {
-        if (IsAlive && !isInvicible)
+        if (healthPool.IsAlive && !isInvicible)
         {
-            Health -= damage;
+            healthPool.CurrentHealth -= damage;
             isInvicible = true;
 
             animator.SetTrigger("hit");

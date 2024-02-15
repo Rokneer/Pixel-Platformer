@@ -140436,6 +140436,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Demon
       objectReference: {fileID: 0}
+    - target: {fileID: 6211404639104386973, guid: 430be7e1c3c8c53428445a88455fbc75, type: 3}
+      propertyPath: _isAlive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6211404639104386973, guid: 430be7e1c3c8c53428445a88455fbc75, type: 3}
+      propertyPath: _maxHealth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6211404639104386973, guid: 430be7e1c3c8c53428445a88455fbc75, type: 3}
+      propertyPath: _currentHealth
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
