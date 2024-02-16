@@ -5,9 +5,14 @@ public class Heart : MonoBehaviour
     public int healingAmount = 1;
 
     #region Functions
-    public void Heal(Health healthPool)
+    public bool Heal(Health healthPool)
     {
-        healthPool.CurrentHealth += healingAmount;
+        if (healthPool.IsAlive && healthPool.CurrentHealth < healthPool.MaxHealth)
+        {
+            healthPool.CurrentHealth += healingAmount;
+            return true;
+        }
+        return false;
     }
     #endregion
 }

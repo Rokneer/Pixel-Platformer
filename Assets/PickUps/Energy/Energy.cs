@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Energy : MonoBehaviour
 {
-    public float energyAmount = 10;
+    public int energyAmount = 20;
 
-    internal void AddEnergy()
+    public int AddEnergy()
     {
-        throw new NotImplementedException();
+        return energyAmount;
     }
 }

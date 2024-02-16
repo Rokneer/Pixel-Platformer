@@ -1,12 +1,11 @@
-using System;
 using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    public float keyId;
+    public GameObject removableWalls;
 
-    internal void AddKey()
+    public void AddKey()
     {
-        throw new NotImplementedException();
+        removableWalls.SetActive(false);
     }
 }

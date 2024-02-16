@@ -6,18 +6,25 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Health), typeof(Damageable))]
 public class PlayerManager : MonoBehaviour
 {
+    private GameManager gameManager;
     private Health healthPool;
-    private Damageable damageable;
+    private LampController lampEnergy;
 
+    public Image playerImage;
+    public List<Sprite> playerSprites = new();
     public Image healthImage;
     public List<Sprite> healthSprites = new();
     public Image energyImage;
     public List<Sprite> energySprites = new();
     public Image keyImage;
+    public Sprite emptySprite;
     public TextMeshProUGUI coinText;
+    public int maxCoinValue = 99;
+    public Transform currentCheckpoint;
 
     private int _hearts;
-    public int Hearts { 
+    public int Hearts
+    {
         get => _hearts;
         set
         {
@@ -25,67 +32,101 @@ public class PlayerManager : MonoBehaviour
             switch (_hearts)
             {
                 case 3:
-                    healthImage.sprite = healthSprites[value-1];
+                    healthImage.sprite = healthSprites[_hearts - 1];
                     break;
                 case 2:
-                    healthImage.sprite = healthSprites[value-1];
+                    healthImage.sprite = healthSprites[_hearts - 1];
                     break;
                 case 1:
-                    healthImage.sprite = healthSprites[value-1];
+                    healthImage.sprite = healthSprites[_hearts - 1];
                     break;
-                default: 
+                case 0:
+                    healthImage.sprite = emptySprite;
+                    playerImage.sprite = playerSprites[1];
+                    break;
+                default:
                     Debug.LogError($"ERROR: Invalid health value of {value}");
                     break;
             }
         }
     }
-
+    private int _coins = 0;
+    public int Coins
+    {
+        get => _coins;
+        set
+        {
+            _coins = Mathf.Clamp(value, 0, maxCoinValue);
+            coinText.text = _coins.ToString();
+        }
+    }
 
     #region Lifecycle
     private void Awake()
     {
+        gameManager = GameManager.Instance;
         healthPool = GetComponent<Health>();
-        damageable = GetComponent<Damageable>();
+        lampEnergy = GetComponentInChildren<LampController>();
+    }
+
+    private void Update()
+    {
+        Hearts = healthPool.CurrentHealth;
     }
     #endregion
 
     #region Functions
-    public bool PickUpItem(GameObject obj)
+    public bool PickUpItem(GameObject pickUp)
     {
-        switch (obj.tag)
+        switch (pickUp.tag)
         {
             case "Health":
-                Debug.Log("Picked up a " + obj.tag);
-                obj.GetComponent<Heart>().Heal(healthPool);
-                return true;
+                return UpdateUIHealth(pickUp);
             case "Key":
-                Debug.Log("Picked up a " + obj.tag);
-                obj.GetComponent<Key>().AddKey();
-                return true;
+                return UpdateUIKey(pickUp);
             case "Energy":
-                Debug.Log("Picked up a " + obj.tag);
-                obj.GetComponent<Energy>().AddEnergy();
-                return true;
+                return UpdateUIEnergy(pickUp);
             case "Coin":
-                Debug.Log("Picked up a " + obj.tag);
-                obj.GetComponent<Coin>().AddCoin();
-                return true;
+                return UpdateUICoin(pickUp);
+            case "Gem":
+                return ActivateLevelCompleteUI();
             default:
-                Debug.LogWarning($"WARNING: No handler implemented for tag {obj.tag}");
+                Debug.LogWarning($"WARNING: No handler implemented for tag {pickUp.tag}");
                 return false;
         }
     }
-    private void UpdateUIHealth(){
-        
-    }
-    private void UpdateUIKey(){
 
+    private bool UpdateUIHealth(GameObject pickUp)
+    {
+        bool wasHealed = pickUp.GetComponent<Heart>().Heal(healthPool);
+        return wasHealed;
     }
-    private void UpdateUIEnergy(){
 
+    private bool UpdateUIKey(GameObject pickUp)
+    {
+        keyImage.enabled = true;
+        pickUp.GetComponent<Key>().AddKey();
+        return true;
     }
-    private void UpdateUICoin(){
 
+    private bool UpdateUIEnergy(GameObject pickUp)
+    {
+        lampEnergy.LightTimer += pickUp.GetComponent<Energy>().AddEnergy();
+        return true;
     }
+
+    private bool UpdateUICoin(GameObject pickUp)
+    {
+        Coins += pickUp.GetComponent<Coin>().AddCoin();
+        return true;
+    }
+
+    private bool ActivateLevelCompleteUI()
+    {
+        gameManager.GameOverUI.SetActive(true);
+        gameManager.GameOverUI.GetComponentInChildren<TextMeshProUGUI>().text = "Winner";
+        return true;
+    }
+
     #endregion
 }

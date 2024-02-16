@@ -1,12 +1,11 @@
-using System;
 using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    public float coinValue = 10;
+    public int coinValue = 1;
 
-    internal void AddCoin()
+    internal int AddCoin()
     {
-        throw new NotImplementedException();
+        return coinValue;
     }
 }

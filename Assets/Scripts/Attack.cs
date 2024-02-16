@@ -13,11 +13,7 @@ public class Attack : MonoBehaviour
                 transform.parent.localScale.x > 0
                     ? knockback
                     : new Vector2(-knockback.x, knockback.y);
-            bool gotHit = damageable.Hit(attackDamage, deliveredKnockback);
-            if (gotHit)
-            {
-                Debug.Log(collision.name + " got hit for " + attackDamage);
-            }
+            damageable.Hit(attackDamage, deliveredKnockback);
         }
     }
 }

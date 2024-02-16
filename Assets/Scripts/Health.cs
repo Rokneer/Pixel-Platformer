@@ -4,7 +4,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     private Animator animator;
-  
+
     [SerializeField]
     private int _maxHealth = 3;
     public int MaxHealth
@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
         get => _currentHealth;
         set
         {
-            Mathf.Clamp(value, 0, MaxHealth);
+            _currentHealth = Mathf.Clamp(value, 0, MaxHealth);
             if (_currentHealth <= 0)
             {
                 IsAlive = false;
