@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(TouchingDirections), typeof(Damageable))]
 public class PlayerController : MonoBehaviour
 {
+    private GameManager gameManager;
     private Vector2 moveInput;
     private Rigidbody2D rb;
     private Animator animator;
@@ -98,6 +99,7 @@ public class PlayerController : MonoBehaviour
     #region Lifecycle
     void Awake()
     {
+        gameManager = GameManager.Instance;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         trail = GetComponent<TrailRenderer>();

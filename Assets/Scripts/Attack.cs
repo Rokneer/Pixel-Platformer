@@ -9,10 +9,13 @@ public class Attack : MonoBehaviour
     {
         if (collision.TryGetComponent<Damageable>(out Damageable damageable))
         {
-            Vector2 deliveredKnockback =
-                transform.parent.localScale.x > 0
+            Vector2 deliveredKnockback = Vector2.zero;
+            if(knockback != Vector2.zero)
+            {
+                deliveredKnockback = transform.parent.localScale.x > 0
                     ? knockback
                     : new Vector2(-knockback.x, knockback.y);
+            }
             damageable.Hit(attackDamage, deliveredKnockback);
         }
     }

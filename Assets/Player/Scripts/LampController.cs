@@ -1,12 +1,18 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class LampController : MonoBehaviour
 {
     private Light2D lampLight;
     private Damageable healthPool;
 
+
+    public Image energyImage;
+    public List<Sprite> energySprites = new();
+    public Sprite emptySprite;
     public float minLightIntesity = 3f;
     public float maxLightIntesity = 5f;
     public float maxLightTimer = 60f;
@@ -41,20 +47,23 @@ public class LampController : MonoBehaviour
                 case <= 0:
                     lampLight.pointLightOuterRadius = 0;
                     lampLight.intensity = 0;
-
+                    energyImage.sprite = emptySprite;
                     break;
                 case <= 20:
                     lampLight.pointLightOuterRadius = 4;
                     lampLight.intensity = 3;
+                    energyImage.sprite = energySprites[0];
                     break;
                 case <= 40:
                     lampLight.pointLightOuterRadius = 5;
                     lampLight.intensity = 4;
+                    energyImage.sprite = energySprites[1];
                     break;
                 case <= 60:
                 default:
                     lampLight.pointLightOuterRadius = 6;
                     lampLight.intensity = 5;
+                    energyImage.sprite = energySprites[2];
                     break;
             }
         }

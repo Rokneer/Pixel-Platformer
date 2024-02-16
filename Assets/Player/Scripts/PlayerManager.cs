@@ -14,8 +14,6 @@ public class PlayerManager : MonoBehaviour
     public List<Sprite> playerSprites = new();
     public Image healthImage;
     public List<Sprite> healthSprites = new();
-    public Image energyImage;
-    public List<Sprite> energySprites = new();
     public Image keyImage;
     public Sprite emptySprite;
     public TextMeshProUGUI coinText;
@@ -123,8 +121,8 @@ public class PlayerManager : MonoBehaviour
 
     private bool ActivateLevelCompleteUI()
     {
-        gameManager.GameOverUI.SetActive(true);
-        gameManager.GameOverUI.GetComponentInChildren<TextMeshProUGUI>().text = "Winner";
+        gameManager.gameOverUI.SetActive(true);
+        gameManager.gameOverUI.GetComponentInChildren<TextMeshProUGUI>().text = "Winner";
         return true;
     }
 

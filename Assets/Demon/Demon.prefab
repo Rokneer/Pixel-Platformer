@@ -109,7 +109,7 @@ Transform:
   m_GameObject: {fileID: 3778979906147469139}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.837, y: -1.018, z: 0}
+  m_LocalPosition: {x: 0.821, y: -1.018, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -147,7 +147,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.04899174}
+  m_Offset: {x: 0, y: 0.049}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -158,7 +158,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.98, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1751754612992763723
 MonoBehaviour:
@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 8053255792788699833}
   - component: {fileID: 2257512470956340760}
   - component: {fileID: 6029276650715623637}
+  - component: {fileID: 6211404639104386973}
   m_Layer: 8
   m_Name: Demon
   m_TagString: Enemy
@@ -360,8 +361,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.006623745, y: -0.09353706}
-  m_Size: {x: 0.74260235, y: 0.83292586}
+  m_Offset: {x: 0, y: -0.09}
+  m_Size: {x: 0.74, y: 0.83}
   m_Direction: 0
 --- !u!114 &8053255792788699833
 MonoBehaviour:
@@ -439,6 +440,18 @@ MonoBehaviour:
         m_CallState: 2
   isInvicible: 0
   invicibilityTime: 0.25
-  _maxHealth: 1
-  _health: 1
+--- !u!114 &6211404639104386973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5999176081901794557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b67c397a49f752c47b77b2f8a95107c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 3
+  _currentHealth: 3
   _isAlive: 1

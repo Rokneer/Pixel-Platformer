@@ -1,15 +1,15 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ResetLevel : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
-    public void ResetCurrentLevel()
+    public void LoadLevel(int ID)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadSceneAsync(ID);
     }
 
-    public void GoToMenu()
+    public void ResetCurrentLevel()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 }

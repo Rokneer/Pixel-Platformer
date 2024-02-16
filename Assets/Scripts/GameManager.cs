@@ -4,14 +4,11 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public static GameManager Instance => _instance;
+    private PlayerController player;
 
-    [SerializeField]
-    private PlayerController player1;
-
-    [SerializeField]
-    private PlayerController player2;
-
-    public GameObject GameOverUI;
+    public bool hasWon = false;
+    public GameObject gameOverUI;
+    public GameObject playerUI;
 
     private void Awake()
     {
@@ -23,25 +20,15 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
     private void Update()
     {
-        if (!!player2)
+        if (!player.IsAlive && !gameOverUI.activeSelf)
         {
-            if (!player1.IsAlive && !player2.IsAlive)
-            {
-                Debug.Log("Dead together");
-                GameOverUI.SetActive(true);
-            }
-        }
-        else
-        {
-            if (!player1.IsAlive)
-            {
-                Debug.Log("Dead alone");
-                GameOverUI.SetActive(true);
-            }
-        }
+            gameOverUI.SetActive(true);
+            playerUI.SetActive(false);
+        } 
     }
 }
