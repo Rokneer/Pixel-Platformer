@@ -6,7 +6,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Health), typeof(Damageable))]
 public class PlayerManager : MonoBehaviour
 {
-    private GameManager gameManager;
     private Health healthPool;
     private LampController lampEnergy;
 
@@ -62,7 +61,6 @@ public class PlayerManager : MonoBehaviour
     #region Lifecycle
     private void Awake()
     {
-        gameManager = GameManager.Instance;
         healthPool = GetComponent<Health>();
         lampEnergy = GetComponentInChildren<LampController>();
     }
@@ -121,8 +119,8 @@ public class PlayerManager : MonoBehaviour
 
     private bool ActivateLevelCompleteUI()
     {
-        gameManager.gameOverUI.SetActive(true);
-        gameManager.gameOverUI.GetComponentInChildren<TextMeshProUGUI>().text = "Winner";
+        GameManager.Instance.gameOverUI.SetActive(true);
+        GameManager.Instance.gameOverUI.GetComponentInChildren<TextMeshProUGUI>().text = "Winner";
         return true;
     }
 

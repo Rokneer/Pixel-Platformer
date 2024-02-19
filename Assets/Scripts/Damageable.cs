@@ -10,6 +10,8 @@ public class Damageable : MonoBehaviour
     public UnityEvent<int, Vector2> damageableHit;
 
     [SerializeField]
+    private AudioClip[] damageSoundClips;
+    [SerializeField]
     private bool isInvicible = false;
     private float timeSinceHit = 0;
     public float invicibilityTime = 0.25f;
@@ -48,6 +50,7 @@ public class Damageable : MonoBehaviour
             isInvicible = true;
 
             animator.SetTrigger("hit");
+            SoundFXManager.Instance.PlayRandomSoundFXClip(damageSoundClips,transform,1f);
             LockVelocity = true;
             damageableHit?.Invoke(damage, knockback);
 
