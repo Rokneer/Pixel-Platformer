@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ResetLevel : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     public void LoadLevel(int ID)
     {
@@ -12,6 +12,7 @@ public class ResetLevel : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
+
     public void QuitGame()
     {
         Application.Quit();

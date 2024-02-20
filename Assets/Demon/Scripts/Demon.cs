@@ -91,11 +91,6 @@ public class Demon : MonoBehaviour
         }
     }
 
-    public void OnHit(int damage, Vector2 knockback)
-    {
-        Debug.Log("Ouchiee");
-    }
-
     public void OnCliffDetected()
     {
         if (touchingDirections.IsGrounded)

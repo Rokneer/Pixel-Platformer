@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5166333619824042834}
   - component: {fileID: 6103440530733207591}
   - component: {fileID: 5251269194524137128}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Energy
   m_TagString: Energy
   m_Icon: {fileID: 0}
@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2f0a4f5cc9bef4eb95b9c98662b760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickUpSoundFX: {fileID: 8300000, guid: 7bd5c72a76d169c4aa45b32c1e5d1c52, type: 3}
 --- !u!114 &5251269194524137128
 MonoBehaviour:
   m_ObjectHideFlags: 0

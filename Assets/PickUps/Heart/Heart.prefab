@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5403645742272640735}
   - component: {fileID: 5375742652468422773}
   - component: {fileID: 8024841042539112739}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Heart
   m_TagString: Health
   m_Icon: {fileID: 0}
@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2f0a4f5cc9bef4eb95b9c98662b760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickUpSoundFX: {fileID: 8300000, guid: 08b9fb05780c34244888dc6208255e09, type: 3}
 --- !u!114 &8024841042539112739
 MonoBehaviour:
   m_ObjectHideFlags: 0

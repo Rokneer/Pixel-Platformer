@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8459546076254916797}
   - component: {fileID: 577485652923956364}
   - component: {fileID: 695551518382992790}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Coin
   m_TagString: Coin
   m_Icon: {fileID: 0}
@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2f0a4f5cc9bef4eb95b9c98662b760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickUpSoundFX: {fileID: 8300000, guid: a289cb96e9f5c664691280e770bc1159, type: 3}
 --- !u!114 &695551518382992790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,4 +169,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d31d6bff1854448a4e8b98ffc47a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinValue: 10
+  coinValue: 1

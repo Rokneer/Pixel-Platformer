@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 4795722790688704585}
   - component: {fileID: 9146598555025644262}
   - component: {fileID: 8917806639487956512}
+  - component: {fileID: 7017419613558205447}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -433,6 +434,9 @@ MonoBehaviour:
   dashCooldown: 1.2
   coyoteTime: 0.2
   jumpBufferTime: 0.2
+  jumpSoundFX: {fileID: 8300000, guid: 177f8c68bbfb52d458b1a2e888edebab, type: 3}
+  dashSoundFX: {fileID: 8300000, guid: 8ce4cf060757ed640a6d294a3e61aa7c, type: 3}
+  dashReadySoundFX: {fileID: 8300000, guid: 45a49a2cbafc32849b70cc1447df826b, type: 3}
   _isMoving: 0
   _isFacingRight: 1
   _isDashing: 0
@@ -451,10 +455,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 880d2d6c2f8ef354da6059f3086e157b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  keys: 0
-  energy: 0
-  coins: 0
+  playerImage: {fileID: 0}
+  playerSprites:
+  - {fileID: 21300000, guid: d729bc19d1afce34d9d055401ca2a310, type: 3}
+  - {fileID: 21300000, guid: 934f59f294babd840b4e3377df7a6d73, type: 3}
+  healthImage: {fileID: 0}
+  healthSprites:
+  - {fileID: 21300000, guid: bc358159abe747945b11339176f2bd0f, type: 3}
+  - {fileID: 21300000, guid: c317b57d477810445ade7a1e922c756b, type: 3}
+  - {fileID: 21300000, guid: 947b0ded63a00b64db6eab71d43337fd, type: 3}
+  keyImage: {fileID: 0}
+  emptySprite: {fileID: 21300000, guid: 59c467e350b1bf24b9dfb352af4189be, type: 3}
+  coinText: {fileID: 0}
+  maxCoinValue: 99
+  currentCheckpoint: {fileID: 0}
 --- !u!114 &9146598555025644262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,10 +528,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  damageSoundClips:
+  - {fileID: 8300000, guid: 5c850baecd4e4c24f9393435d00f04e6, type: 3}
+  - {fileID: 8300000, guid: 90dcf24a801c41544aad8ae50cd2ffae, type: 3}
+  - {fileID: 8300000, guid: 26e7d842a09b2a74798704d079f60210, type: 3}
   isInvicible: 0
   invicibilityTime: 0.25
+--- !u!114 &7017419613558205447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3342107724968144199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b67c397a49f752c47b77b2f8a95107c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathSoundFX: {fileID: 8300000, guid: b222c93076f4c38429fb6ed579558eed, type: 3}
   _maxHealth: 3
-  _health: 3
+  _currentHealth: 3
   _isAlive: 1
 --- !u!1 &7904854332587986525
 GameObject:
@@ -614,6 +645,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c227ed6abb8cd9e4eaa68c3841c09011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  energyImage: {fileID: 0}
+  energySprites:
+  - {fileID: 21300000, guid: b21096701a550d242a5960303b362746, type: 3}
+  - {fileID: 21300000, guid: 272d79861b46c0641a03db856e84c514, type: 3}
+  - {fileID: 21300000, guid: 671ab3472a5dd184281f13df7c268bcd, type: 3}
+  emptySprite: {fileID: 21300000, guid: 59c467e350b1bf24b9dfb352af4189be, type: 3}
   minLightIntesity: 3
   maxLightIntesity: 5
   maxLightTimer: 60

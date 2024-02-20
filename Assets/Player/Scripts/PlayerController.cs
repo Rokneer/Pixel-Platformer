@@ -23,6 +23,15 @@ public class PlayerController : MonoBehaviour
     public float jumpBufferTime = 0.2f;
 
     [SerializeField]
+    private AudioClip jumpSoundFX;
+
+    [SerializeField]
+    private AudioClip dashSoundFX;
+
+    [SerializeField]
+    private AudioClip dashReadySoundFX;
+
+    [SerializeField]
     private bool _isMoving = false;
     public bool IsMoving
     {
@@ -166,6 +175,7 @@ public class PlayerController : MonoBehaviour
             if (CoyoteTimeCounter > 0f && JumpBufferCounter > 0f)
             {
                 animator.SetTrigger("jump");
+                SoundFXManager.Instance.PlaySoundFXClip(jumpSoundFX, transform, 1f);
                 rb.velocity = new(rb.velocity.x, jumpImpulse);
                 JumpBufferCounter = 0f;
             }
@@ -190,9 +200,11 @@ public class PlayerController : MonoBehaviour
         CanDash = false;
         IsDashing = true;
         rb.velocity = new(transform.localScale.x * dashImpulse, 0f);
+        SoundFXManager.Instance.PlaySoundFXClip(dashSoundFX, transform, 1f);
         yield return new WaitForSeconds(dashTime);
         IsDashing = false;
         yield return new WaitForSeconds(dashCooldown);
+        SoundFXManager.Instance.PlaySoundFXClip(dashReadySoundFX, transform, 1f);
         CanDash = true;
     }
 

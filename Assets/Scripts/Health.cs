@@ -6,6 +6,9 @@ public class Health : MonoBehaviour
     private Animator animator;
 
     [SerializeField]
+    private AudioClip deathSoundFX;
+
+    [SerializeField]
     private int _maxHealth = 3;
     public int MaxHealth
     {
@@ -37,6 +40,10 @@ public class Health : MonoBehaviour
         {
             _isAlive = value;
             animator.SetBool("isAlive", value);
+            if (!value)
+            {
+                SoundFXManager.Instance.PlaySoundFXClip(deathSoundFX, transform, 1f);
+            }
         }
     }
 

@@ -212,3 +212,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceForce: 15
+  trampolineSoundFX: {fileID: 8300000, guid: 6ba6d24f90de39046abc3e5a851dfd50, type: 3}
