@@ -16,10 +16,10 @@ Te adentras en una oscura cueva en busca de riquezas sin saber de los peligros q
 
 ## Imágenes
 
-![Screenshot 1](https://github.com/rokneer/Pixel-Platformer/Assets/PreviewImages/cave_dwellers_img_1.png?raw=true)
+![Screenshot 1](/Assets/PreviewImages/cave_dwellers_img_1.png?raw=true)
 
-![Screenshot 1](https://github.com/rokneer/Pixel-Platformer/Assets/PreviewImages/cave_dwellers_img_2.png?raw=true)
+![Screenshot 1](/Assets/PreviewImages/cave_dwellers_img_2.png?raw=true)
 
-![Screenshot 1](https://github.com/rokneer/Pixel-Platformer/Assets/PreviewImages/cave_dwellers_img_3.png?raw=true)
+![Screenshot 1](/Assets/PreviewImages/cave_dwellers_img_3.png?raw=true)
 
-![Screenshot 1](https://github.com/rokneer/Pixel-Platformer/Assets/PreviewImages/cave_dwellers_img_4.png?raw=true)
+![Screenshot 1](/Assets/PreviewImages/cave_dwellers_img_4.png?raw=true)
