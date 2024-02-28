@@ -54,7 +54,7 @@ public class PlayerManager : MonoBehaviour
         set
         {
             _coins = Mathf.Clamp(value, 0, maxCoinValue);
-            coinText.text = _coins.ToString();
+            coinText.text = value.ToString();
         }
     }
 

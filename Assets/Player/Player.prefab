@@ -176,8 +176,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0024192333, y: -0.12351793}
-  m_Size: {x: 0.75258493, y: 0.75258493}
+  m_Offset: {x: 0, y: -0.12}
+  m_Size: {x: 0.75, y: 0.75}
   m_Direction: 0
 --- !u!96 &7954615305110072215
 TrailRenderer:

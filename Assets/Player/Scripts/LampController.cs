@@ -49,6 +49,14 @@ public class LampController : MonoBehaviour
                     lampLight.intensity = 0;
                     energyImage.sprite = emptySprite;
                     break;
+                case <= 5:
+                    lampLight.pointLightOuterRadius = 2;
+                    lampLight.intensity = 1;
+                    break;
+                case <= 10:
+                    lampLight.pointLightOuterRadius = 3;
+                    lampLight.intensity = 2;
+                    break;
                 case <= 20:
                     lampLight.pointLightOuterRadius = 4;
                     lampLight.intensity = 3;

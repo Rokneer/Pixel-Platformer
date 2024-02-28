@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class Trampoline : MonoBehaviour
 {
     public float bounceForce = 15.0f;
