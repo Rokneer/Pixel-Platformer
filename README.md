@@ -8,7 +8,7 @@ Te adentras en una oscura cueva en busca de riquezas sin saber de los peligros q
 
 ## Controles
 
-**Movimiento** WASD.
+**Movimiento** A y D.
 
 **Salto** Barra espaciadora, se puede sostener para saltar más alto.
 
