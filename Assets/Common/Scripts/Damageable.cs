@@ -4,55 +4,55 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Animator), typeof(Health))]
 public class Damageable : MonoBehaviour
 {
-    private Animator animator;
-    private Health healthPool;
+    private Animator _animator;
+    private Health _healthPool;
 
     public UnityEvent<int, Vector2> damageableHit;
 
     [SerializeField]
-    private AudioClip[] damageSoundClips;
+    private AudioClip[] _damageSoundClips;
     [SerializeField]
-    private bool isInvicible = false;
-    private float timeSinceHit = 0;
+    private bool _isInvicible = false;
+    private float _timeSinceHit = 0;
     public float invicibilityTime = 0.25f;
 
     public bool LockVelocity
     {
-        get => animator.GetBool("lockVelocity");
-        set => animator.SetBool("lockVelocity", value);
+        get => _animator.GetBool("lockVelocity");
+        set => _animator.SetBool("lockVelocity", value);
     }
 
     #region Lifecycle
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-        healthPool = GetComponent<Health>();
+        _animator = GetComponent<Animator>();
+        _healthPool = GetComponent<Health>();
     }
 
     private void Update()
     {
-        if (isInvicible)
+        if (_isInvicible)
         {
-            if (timeSinceHit > invicibilityTime)
+            if (_timeSinceHit > invicibilityTime)
             {
-                isInvicible = false;
-                timeSinceHit = 0;
+                _isInvicible = false;
+                _timeSinceHit = 0;
             }
-            timeSinceHit += Time.deltaTime;
+            _timeSinceHit += Time.deltaTime;
         }
     }
     #endregion
     public bool Hit(int damage, Vector2 knockback)
     {
-        if (healthPool.IsAlive && !isInvicible)
+        if (_healthPool.IsAlive && !_isInvicible)
         {
-            healthPool.CurrentHealth -= damage;
-            isInvicible = true;
+            _healthPool.CurrentHealth -= damage;
+            _isInvicible = true;
 
-            animator.SetTrigger("hit");
-            SoundFXManager.Instance.PlayRandomSoundFXClip(damageSoundClips,transform,1f);
+            _animator.SetTrigger("hit");
+            SoundFXManager.Instance.PlayRandomSoundFXClip(_damageSoundClips,transform,1f);
             LockVelocity = true;
-            damageableHit?.Invoke(damage, knockback);
+            damageableHit.Invoke(damage, knockback);
 
             return true;
         }

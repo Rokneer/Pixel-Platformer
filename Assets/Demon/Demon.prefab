@@ -425,24 +425,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageableHit:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8053255792788699833}
-        m_TargetAssemblyTypeName: Demon, Assembly-CSharp
-        m_MethodName: OnHit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  damageSoundClips:
+      m_Calls: []
+  _damageSoundClips:
   - {fileID: 8300000, guid: 5c850baecd4e4c24f9393435d00f04e6, type: 3}
   - {fileID: 8300000, guid: 90dcf24a801c41544aad8ae50cd2ffae, type: 3}
   - {fileID: 8300000, guid: 26e7d842a09b2a74798704d079f60210, type: 3}
-  isInvicible: 0
+  _isInvicible: 0
   invicibilityTime: 0.2
 --- !u!114 &6211404639104386973
 MonoBehaviour:
@@ -456,7 +444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b67c397a49f752c47b77b2f8a95107c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathSoundFX: {fileID: 8300000, guid: b222c93076f4c38429fb6ed579558eed, type: 3}
+  _deathSoundFX: {fileID: 8300000, guid: b222c93076f4c38429fb6ed579558eed, type: 3}
   _maxHealth: 1
   _currentHealth: 1
   _isAlive: 1

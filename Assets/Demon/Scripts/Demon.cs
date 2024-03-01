@@ -4,10 +4,10 @@ using UnityEngine;
 [RequireComponent(typeof(TouchingDirections), typeof(Damageable))]
 public class Demon : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private Animator animator;
-    private TouchingDirections touchingDirections;
-    private Damageable damageable;
+    private Rigidbody2D _rb;
+    private Animator _animator;
+    private TouchingDirections _touchingDirections;
+    private Damageable _damageable;
 
     public DetectionZone cliffZone;
     public float walkSpeed = 3f;
@@ -19,7 +19,7 @@ public class Demon : MonoBehaviour
         Left
     }
 
-    private Vector2 walkDirectionVector = Vector2.right;
+    private Vector2 _walkDirectionVector = Vector2.right;
     private WalkableDirection _walkDirection;
 
     public WalkableDirection WalkDirection
@@ -36,10 +36,10 @@ public class Demon : MonoBehaviour
                 switch (value)
                 {
                     case WalkableDirection.Right:
-                        walkDirectionVector = Vector2.right;
+                        _walkDirectionVector = Vector2.right;
                         break;
                     case WalkableDirection.Left:
-                        walkDirectionVector = Vector2.left;
+                        _walkDirectionVector = Vector2.left;
                         break;
                     default:
                         Debug.LogError($"ERROR: Invalid walkable direction of type {value}");
@@ -49,28 +49,28 @@ public class Demon : MonoBehaviour
             _walkDirection = value;
         }
     }
-    public bool CanMove => animator.GetBool("canMove");
+    public bool CanMove => _animator.GetBool("canMove");
 
     #region Lifecycle
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        touchingDirections = GetComponent<TouchingDirections>();
-        damageable = GetComponent<Damageable>();
+        _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _touchingDirections = GetComponent<TouchingDirections>();
+        _damageable = GetComponent<Damageable>();
     }
 
     void FixedUpdate()
     {
-        if (touchingDirections.IsGrounded && touchingDirections.IsOnWall)
+        if (_touchingDirections.IsGrounded && _touchingDirections.IsOnWall)
         {
             FlipDirection();
         }
-        if (!damageable.LockVelocity)
+        if (!_damageable.LockVelocity)
         {
-            rb.velocity = CanMove
-                ? new Vector2(walkSpeed * walkDirectionVector.x, rb.velocity.y)
-                : new Vector2(Mathf.Lerp(rb.velocity.x, 0, walkStopRate), rb.velocity.y);
+            _rb.velocity = CanMove
+                ? new Vector2(walkSpeed * _walkDirectionVector.x, _rb.velocity.y)
+                : new Vector2(Mathf.Lerp(_rb.velocity.x, 0, walkStopRate), _rb.velocity.y);
         }
     }
     #endregion
@@ -93,7 +93,7 @@ public class Demon : MonoBehaviour
 
     public void OnCliffDetected()
     {
-        if (touchingDirections.IsGrounded)
+        if (_touchingDirections.IsGrounded)
         {
             FlipDirection();
         }

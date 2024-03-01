@@ -6,8 +6,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Health), typeof(Damageable))]
 public class PlayerManager : MonoBehaviour
 {
-    private Health healthPool;
-    private LampController lampEnergy;
+    private Health _healthPool;
+    private LampController _lampEnergy;
 
     public Image playerImage;
     public List<Sprite> playerSprites = new();
@@ -25,7 +25,7 @@ public class PlayerManager : MonoBehaviour
         get => _hearts;
         set
         {
-            _hearts = Mathf.Clamp(value, 0, healthPool.MaxHealth);
+            _hearts = Mathf.Clamp(value, 0, _healthPool.MaxHealth);
             switch (_hearts)
             {
                 case 3:
@@ -61,13 +61,13 @@ public class PlayerManager : MonoBehaviour
     #region Lifecycle
     private void Awake()
     {
-        healthPool = GetComponent<Health>();
-        lampEnergy = GetComponentInChildren<LampController>();
+        _healthPool = GetComponent<Health>();
+        _lampEnergy = GetComponentInChildren<LampController>();
     }
 
     private void Update()
     {
-        Hearts = healthPool.CurrentHealth;
+        Hearts = _healthPool.CurrentHealth;
     }
     #endregion
 
@@ -94,7 +94,7 @@ public class PlayerManager : MonoBehaviour
 
     private bool UpdateUIHealth(GameObject pickUp)
     {
-        bool wasHealed = pickUp.GetComponent<Heart>().Heal(healthPool);
+        bool wasHealed = pickUp.GetComponent<Heart>().Heal(_healthPool);
         return wasHealed;
     }
 
@@ -107,7 +107,7 @@ public class PlayerManager : MonoBehaviour
 
     private bool UpdateUIEnergy(GameObject pickUp)
     {
-        lampEnergy.LightTimer += pickUp.GetComponent<Energy>().AddEnergy();
+        _lampEnergy.LightTimer += pickUp.GetComponent<Energy>().AddEnergy();
         return true;
     }
 

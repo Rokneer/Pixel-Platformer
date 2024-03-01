@@ -243,5 +243,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22cdefc23f296d046b00142b3d2ec44b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceForce: 15
-  trampolineSoundFX: {fileID: 8300000, guid: 6ba6d24f90de39046abc3e5a851dfd50, type: 3}
+  _bounceForce: 15
+  _trampolineSoundFX: {fileID: 8300000, guid: 6ba6d24f90de39046abc3e5a851dfd50, type: 3}

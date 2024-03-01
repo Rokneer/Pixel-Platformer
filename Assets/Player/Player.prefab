@@ -528,11 +528,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  damageSoundClips:
-  - {fileID: 8300000, guid: 5c850baecd4e4c24f9393435d00f04e6, type: 3}
-  - {fileID: 8300000, guid: 90dcf24a801c41544aad8ae50cd2ffae, type: 3}
-  - {fileID: 8300000, guid: 26e7d842a09b2a74798704d079f60210, type: 3}
-  isInvicible: 0
+  _damageSoundClips: []
+  _isInvicible: 0
   invicibilityTime: 0.25
 --- !u!114 &7017419613558205447
 MonoBehaviour:
@@ -546,7 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b67c397a49f752c47b77b2f8a95107c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathSoundFX: {fileID: 8300000, guid: b222c93076f4c38429fb6ed579558eed, type: 3}
+  _deathSoundFX: {fileID: 8300000, guid: b222c93076f4c38429fb6ed579558eed, type: 3}
   _maxHealth: 3
   _currentHealth: 3
   _isAlive: 1

@@ -3,10 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Health : MonoBehaviour
 {
-    private Animator animator;
+    private Animator _animator;
 
     [SerializeField]
-    private AudioClip deathSoundFX;
+    private AudioClip _deathSoundFX;
 
     [SerializeField]
     private int _maxHealth = 3;
@@ -39,10 +39,10 @@ public class Health : MonoBehaviour
         set
         {
             _isAlive = value;
-            animator.SetBool("isAlive", value);
+            _animator.SetBool("isAlive", value);
             if (!value)
             {
-                SoundFXManager.Instance.PlaySoundFXClip(deathSoundFX, transform, 1f);
+                SoundFXManager.Instance.PlaySoundFXClip(_deathSoundFX, transform, 1f);
             }
         }
     }
@@ -50,7 +50,7 @@ public class Health : MonoBehaviour
     #region Lifecycle
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
     #endregion
 }

@@ -3,10 +3,10 @@ using UnityEngine;
 public class FadeRemoveBehaviour : StateMachineBehaviour
 {
     public float fadeTime = 0.5f;
-    private float timeElapsed = 0f;
-    SpriteRenderer spriteRenderer;
-    GameObject objectToRemove;
-    Color startColor;
+    private float _timeElapsed = 0f;
+    private SpriteRenderer _spriteRenderer;
+    private GameObject _objectToRemove;
+    private Color _startColor;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(
@@ -15,10 +15,10 @@ public class FadeRemoveBehaviour : StateMachineBehaviour
         int layerIndex
     )
     {
-        timeElapsed = 0;
-        spriteRenderer = animator.GetComponent<SpriteRenderer>();
-        startColor = spriteRenderer.color;
-        objectToRemove = animator.gameObject;
+        _timeElapsed = 0;
+        _spriteRenderer = animator.GetComponent<SpriteRenderer>();
+        _startColor = _spriteRenderer.color;
+        _objectToRemove = animator.gameObject;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -28,12 +28,12 @@ public class FadeRemoveBehaviour : StateMachineBehaviour
         int layerIndex
     )
     {
-        timeElapsed += Time.deltaTime;
-        float newAlpha = startColor.a * (1 - (timeElapsed / fadeTime));
-        spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, newAlpha);
-        if (timeElapsed > fadeTime)
+        _timeElapsed += Time.deltaTime;
+        float newAlpha = _startColor.a * (1 - (_timeElapsed / fadeTime));
+        _spriteRenderer.color = new Color(_startColor.r, _startColor.g, _startColor.b, newAlpha);
+        if (_timeElapsed > fadeTime)
         {
-            Destroy(objectToRemove);
+            Destroy(_objectToRemove);
         }
     }
 }

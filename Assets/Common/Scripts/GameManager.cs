@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public static GameManager Instance => _instance;
-    private PlayerController player;
+    private PlayerController _player;
 
     public bool hasWon = false;
     public GameObject gameOverUI;
@@ -20,12 +20,12 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        _player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
     private void Update()
     {
-        if (!player.IsAlive && !gameOverUI.activeSelf)
+        if (!_player.IsAlive && !gameOverUI.activeSelf)
         {
             gameOverUI.SetActive(true);
             playerUI.SetActive(false);

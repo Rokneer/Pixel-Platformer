@@ -3,16 +3,16 @@ using UnityEngine;
 [RequireComponent(typeof(Animator), (typeof(CapsuleCollider2D)))]
 public class TouchingDirections : MonoBehaviour
 {
-    private Animator animator;
-    private CapsuleCollider2D touchingCollider;
+    private Animator _animator;
+    private CapsuleCollider2D _touchingCollider;
 
     public ContactFilter2D castFilter;
     public float groundDistance = 0.05f;
     public float cellingDistance = 0.05f;
     public float wallDistance = 0.1f;
-    private readonly RaycastHit2D[] groundHits = new RaycastHit2D[5];
-    private readonly RaycastHit2D[] cellingHits = new RaycastHit2D[5];
-    private readonly RaycastHit2D[] wallHits = new RaycastHit2D[5];
+    private readonly RaycastHit2D[] _groundHits = new RaycastHit2D[5];
+    private readonly RaycastHit2D[] _cellingHits = new RaycastHit2D[5];
+    private readonly RaycastHit2D[] _wallHits = new RaycastHit2D[5];
 
     private Vector2 WallCheckDirection =>
         gameObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left;
@@ -25,7 +25,7 @@ public class TouchingDirections : MonoBehaviour
         set
         {
             _isGrounded = value;
-            animator.SetBool("isGrounded", value);
+            _animator.SetBool("isGrounded", value);
         }
     }
 
@@ -37,7 +37,7 @@ public class TouchingDirections : MonoBehaviour
         set
         {
             _isOnCelling = value;
-            animator.SetBool("isOnCelling", value);
+            _animator.SetBool("isOnCelling", value);
         }
     }
 
@@ -49,27 +49,27 @@ public class TouchingDirections : MonoBehaviour
         set
         {
             _isOnWall = value;
-            animator.SetBool("isOnWall", value);
+            _animator.SetBool("isOnWall", value);
         }
     }
 
     #region Lifecycle
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-        touchingCollider = GetComponent<CapsuleCollider2D>();
+        _animator = GetComponent<Animator>();
+        _touchingCollider = GetComponent<CapsuleCollider2D>();
     }
 
     private void FixedUpdate()
     {
         IsGrounded =
-            touchingCollider.Cast(Vector2.down, castFilter, groundHits, groundDistance) > 0;
+            _touchingCollider.Cast(Vector2.down, castFilter, _groundHits, groundDistance) > 0;
 
         IsOnCelling =
-            touchingCollider.Cast(Vector2.up, castFilter, cellingHits, cellingDistance) > 0;
+            _touchingCollider.Cast(Vector2.up, castFilter, _cellingHits, cellingDistance) > 0;
 
         IsOnWall =
-            touchingCollider.Cast(WallCheckDirection, castFilter, wallHits, wallDistance) > 0;
+            _touchingCollider.Cast(WallCheckDirection, castFilter, _wallHits, wallDistance) > 0;
     }
     #endregion
 }

@@ -6,9 +6,8 @@ using UnityEngine.UI;
 
 public class LampController : MonoBehaviour
 {
-    private Light2D lampLight;
-    private Damageable healthPool;
-
+    private Light2D _lampLight;
+    private Damageable _healthPool;
 
     public Image energyImage;
     public List<Sprite> energySprites = new();
@@ -45,32 +44,32 @@ public class LampController : MonoBehaviour
             switch (value)
             {
                 case <= 0:
-                    lampLight.pointLightOuterRadius = 0;
-                    lampLight.intensity = 0;
+                    _lampLight.pointLightOuterRadius = 0;
+                    _lampLight.intensity = 0;
                     energyImage.sprite = emptySprite;
                     break;
                 case <= 5:
-                    lampLight.pointLightOuterRadius = 2;
-                    lampLight.intensity = 1;
+                    _lampLight.pointLightOuterRadius = 2;
+                    _lampLight.intensity = 1;
                     break;
                 case <= 10:
-                    lampLight.pointLightOuterRadius = 3;
-                    lampLight.intensity = 2;
+                    _lampLight.pointLightOuterRadius = 3;
+                    _lampLight.intensity = 2;
                     break;
                 case <= 20:
-                    lampLight.pointLightOuterRadius = 4;
-                    lampLight.intensity = 3;
+                    _lampLight.pointLightOuterRadius = 4;
+                    _lampLight.intensity = 3;
                     energyImage.sprite = energySprites[0];
                     break;
                 case <= 40:
-                    lampLight.pointLightOuterRadius = 5;
-                    lampLight.intensity = 4;
+                    _lampLight.pointLightOuterRadius = 5;
+                    _lampLight.intensity = 4;
                     energyImage.sprite = energySprites[1];
                     break;
                 case <= 60:
                 default:
-                    lampLight.pointLightOuterRadius = 6;
-                    lampLight.intensity = 5;
+                    _lampLight.pointLightOuterRadius = 6;
+                    _lampLight.intensity = 5;
                     energyImage.sprite = energySprites[2];
                     break;
             }
@@ -80,8 +79,8 @@ public class LampController : MonoBehaviour
     #region Lifecycle
     private void Awake()
     {
-        lampLight = GetComponent<Light2D>();
-        healthPool = GetComponentInParent<Damageable>();
+        _lampLight = GetComponent<Light2D>();
+        _healthPool = GetComponentInParent<Damageable>();
     }
 
     void Update()
@@ -98,8 +97,8 @@ public class LampController : MonoBehaviour
 
     private IEnumerator InDarkness()
     {
-        healthPool.Hit(1, new Vector2(0, 0));
-        yield return new WaitForSeconds(healthPool.invicibilityTime);
+        _healthPool.Hit(1, new Vector2(0, 0));
+        yield return new WaitForSeconds(_healthPool.invicibilityTime);
     }
     #endregion
 }

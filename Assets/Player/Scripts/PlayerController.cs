@@ -6,12 +6,12 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(TouchingDirections), typeof(Damageable))]
 public class PlayerController : MonoBehaviour
 {
-    private Vector2 moveInput;
-    private Rigidbody2D rb;
-    private Animator animator;
-    private TrailRenderer trail;
-    private TouchingDirections touchingDirections;
-    private Damageable damageable;
+    private Vector2 _moveInput;
+    private Rigidbody2D _rb;
+    private Animator _animator;
+    private TrailRenderer _trail;
+    private TouchingDirections _touchingDirections;
+    private Damageable _damageable;
 
     public float walkSpeed = 5f;
     public float airSpeed = 4f;
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
         set
         {
             _isMoving = value;
-            animator.SetBool("isMoving", value);
+            _animator.SetBool("isMoving", value);
         }
     }
     public bool _isFacingRight = true;
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
         set
         {
             _isDashing = value;
-            trail.emitting = value;
+            _trail.emitting = value;
         }
     }
     public bool _canDash = true;
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
     {
         get => _coyoteTimeCounter;
         set =>
-            _coyoteTimeCounter = touchingDirections.IsGrounded
+            _coyoteTimeCounter = _touchingDirections.IsGrounded
                 ? coyoteTime
                 : Mathf.Clamp(value, 0f, coyoteTime);
     }
@@ -90,9 +90,9 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
-            if (IsMoving && CanMove && !touchingDirections.IsOnWall)
+            if (IsMoving && CanMove && !_touchingDirections.IsOnWall)
             {
-                if (touchingDirections.IsGrounded)
+                if (_touchingDirections.IsGrounded)
                 {
                     return walkSpeed;
                 }
@@ -101,23 +101,23 @@ public class PlayerController : MonoBehaviour
             return 0;
         }
     }
-    public bool CanMove => animator.GetBool("canMove");
-    public bool IsAlive => animator.GetBool("isAlive");
+    public bool CanMove => _animator.GetBool("canMove");
+    public bool IsAlive => _animator.GetBool("isAlive");
 
     #region Lifecycle
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        trail = GetComponent<TrailRenderer>();
-        touchingDirections = GetComponent<TouchingDirections>();
-        damageable = GetComponent<Damageable>();
+        _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _trail = GetComponent<TrailRenderer>();
+        _touchingDirections = GetComponent<TouchingDirections>();
+        _damageable = GetComponent<Damageable>();
     }
 
     private void Update()
     {
         CoyoteTimeCounter -= Time.deltaTime;
-        if (touchingDirections.IsGrounded)
+        if (_touchingDirections.IsGrounded)
         {
             JumpBufferCounter -= Time.deltaTime;
         }
@@ -125,11 +125,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!IsDashing && !damageable.LockVelocity)
+        if (!IsDashing && !_damageable.LockVelocity)
         {
-            rb.velocity = new(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
+            _rb.velocity = new(_moveInput.x * CurrentMoveSpeed, _rb.velocity.y);
         }
-        animator.SetFloat("yVelocity", rb.velocity.y);
+        _animator.SetFloat("yVelocity", _rb.velocity.y);
     }
     #endregion
 
@@ -154,9 +154,9 @@ public class PlayerController : MonoBehaviour
     {
         if (IsAlive)
         {
-            moveInput = context.ReadValue<Vector2>();
-            IsMoving = moveInput != Vector2.zero;
-            SetFacingDirection(moveInput);
+            _moveInput = context.ReadValue<Vector2>();
+            IsMoving = _moveInput != Vector2.zero;
+            SetFacingDirection(_moveInput);
         }
         else
         {
@@ -174,14 +174,14 @@ public class PlayerController : MonoBehaviour
             }
             if (CoyoteTimeCounter > 0f && JumpBufferCounter > 0f)
             {
-                animator.SetTrigger("jump");
+                _animator.SetTrigger("jump");
                 SoundFXManager.Instance.PlaySoundFXClip(jumpSoundFX, transform, 1f);
-                rb.velocity = new(rb.velocity.x, jumpImpulse);
+                _rb.velocity = new(_rb.velocity.x, jumpImpulse);
                 JumpBufferCounter = 0f;
             }
-            if (context.canceled && rb.velocity.y > 0)
+            if (context.canceled && _rb.velocity.y > 0)
             {
-                rb.velocity = new(rb.velocity.x, rb.velocity.y * 0.6f);
+                _rb.velocity = new(_rb.velocity.x, _rb.velocity.y * 0.6f);
                 CoyoteTimeCounter = 0f;
             }
         }
@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
     {
         CanDash = false;
         IsDashing = true;
-        rb.velocity = new(transform.localScale.x * dashImpulse, 0f);
+        _rb.velocity = new(transform.localScale.x * dashImpulse, 0f);
         SoundFXManager.Instance.PlaySoundFXClip(dashSoundFX, transform, 1f);
         yield return new WaitForSeconds(dashTime);
         IsDashing = false;
@@ -210,7 +210,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnHit(int damage, Vector2 knockback)
     {
-        rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
+        _rb.velocity = new Vector2(knockback.x, _rb.velocity.y + knockback.y);
     }
     #endregion
 }
