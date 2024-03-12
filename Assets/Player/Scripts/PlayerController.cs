@@ -6,22 +6,33 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(TouchingDirections), typeof(Damageable))]
 public class PlayerController : MonoBehaviour
 {
+    private static PlayerController _instance;
+    public static PlayerController Instance => _instance;
     private Vector2 _moveInput;
     private Rigidbody2D _rb;
     private Animator _animator;
     private TrailRenderer _trail;
+    private ParticleSystem _dashRechargeParticles;
     private TouchingDirections _touchingDirections;
     private Damageable _damageable;
 
+    [Header("Movement")]
     public float walkSpeed = 5f;
     public float airSpeed = 4f;
     public float jumpImpulse = 7f;
+
+    [Header("Dash")]
     public float dashImpulse = 20f;
     public float dashTime = 0.2f;
     public float dashCooldown = 1.2f;
+
+    [Header("Coyote")]
     public float coyoteTime = 0.2f;
+
+    [Header("Jump Buffer")]
     public float jumpBufferTime = 0.2f;
 
+    [Header("Sound Effects")]
     [SerializeField]
     private AudioClip jumpSoundFX;
 
@@ -107,11 +118,20 @@ public class PlayerController : MonoBehaviour
     #region Lifecycle
     void Awake()
     {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _trail = GetComponent<TrailRenderer>();
         _touchingDirections = GetComponent<TouchingDirections>();
         _damageable = GetComponent<Damageable>();
+        _dashRechargeParticles = GetComponent<ParticleSystem>();
     }
 
     private void Update()
@@ -205,6 +225,7 @@ public class PlayerController : MonoBehaviour
         IsDashing = false;
         yield return new WaitForSeconds(dashCooldown);
         SoundFXManager.Instance.PlaySoundFXClip(dashReadySoundFX, transform, 1f);
+        _dashRechargeParticles.Play();
         CanDash = true;
     }
 

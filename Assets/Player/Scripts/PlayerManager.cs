@@ -6,6 +6,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Health), typeof(Damageable))]
 public class PlayerManager : MonoBehaviour
 {
+    private static PlayerManager _instance;
+    public static PlayerManager Instance => _instance;
     private Health _healthPool;
     private LampController _lampEnergy;
 
@@ -13,7 +15,6 @@ public class PlayerManager : MonoBehaviour
     public List<Sprite> playerSprites = new();
     public Image healthImage;
     public List<Sprite> healthSprites = new();
-    public Image keyImage;
     public Sprite emptySprite;
     public TextMeshProUGUI coinText;
     public int maxCoinValue = 99;
@@ -61,6 +62,14 @@ public class PlayerManager : MonoBehaviour
     #region Lifecycle
     private void Awake()
     {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
         _healthPool = GetComponent<Health>();
         _lampEnergy = GetComponentInChildren<LampController>();
     }
@@ -100,7 +109,6 @@ public class PlayerManager : MonoBehaviour
 
     private bool UpdateUIKey(GameObject pickUp)
     {
-        keyImage.enabled = true;
         pickUp.GetComponent<Key>().AddKey();
         return true;
     }
@@ -121,6 +129,8 @@ public class PlayerManager : MonoBehaviour
     {
         GameManager.Instance.gameOverUI.SetActive(true);
         GameManager.Instance.gameOverUI.GetComponentInChildren<TextMeshProUGUI>().text = "Winner";
+        PauseManager.Instance.ManageMouseVisibility(true);
+        PauseManager.Instance.PauseGame();
         return true;
     }
 

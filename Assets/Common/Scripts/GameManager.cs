@@ -4,7 +4,6 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public static GameManager Instance => _instance;
-    private PlayerController _player;
 
     public bool hasWon = false;
     public GameObject gameOverUI;
@@ -20,15 +19,15 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
-        _player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
     private void Update()
     {
-        if (!_player.IsAlive && !gameOverUI.activeSelf)
+        if (!PlayerController.Instance.IsAlive && !gameOverUI.activeSelf)
         {
             gameOverUI.SetActive(true);
             playerUI.SetActive(false);
-        } 
+            PauseManager.Instance.ManageMouseVisibility(true);
+        }
     }
 }

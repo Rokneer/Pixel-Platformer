@@ -9,13 +9,18 @@ public class LampController : MonoBehaviour
     private Light2D _lampLight;
     private Damageable _healthPool;
 
+    [Header("Sprites")]
     public Image energyImage;
     public List<Sprite> energySprites = new();
     public Sprite emptySprite;
+
+    [Header("Light")]
     public float minLightIntesity = 3f;
     public float maxLightIntesity = 5f;
     public float maxLightTimer = 60f;
     public float maxLightRadius = 4f;
+    public float darknessDelay = 0.8f;
+    public bool darknessCanHurt = true;
 
     [SerializeField]
     private float _lightIntesity = 5f;
@@ -47,6 +52,10 @@ public class LampController : MonoBehaviour
                     _lampLight.pointLightOuterRadius = 0;
                     _lampLight.intensity = 0;
                     energyImage.sprite = emptySprite;
+                    if (darknessCanHurt)
+                    {
+                        StartCoroutine(InDarkness());
+                    }
                     break;
                 case <= 5:
                     _lampLight.pointLightOuterRadius = 2;
@@ -86,19 +95,16 @@ public class LampController : MonoBehaviour
     void Update()
     {
         LightTimer -= Time.deltaTime;
-        if (LightTimer <= 0)
-        {
-            StartCoroutine(InDarkness());
-        }
     }
     #endregion
 
     #region Functions
-
     private IEnumerator InDarkness()
     {
         _healthPool.Hit(1, new Vector2(0, 0));
-        yield return new WaitForSeconds(_healthPool.invicibilityTime);
+        darknessCanHurt = false;
+        yield return new WaitForSeconds(darknessDelay);
+        darknessCanHurt = true;
     }
     #endregion
 }

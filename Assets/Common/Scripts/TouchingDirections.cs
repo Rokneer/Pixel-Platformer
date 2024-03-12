@@ -14,6 +14,8 @@ public class TouchingDirections : MonoBehaviour
     private readonly RaycastHit2D[] _cellingHits = new RaycastHit2D[5];
     private readonly RaycastHit2D[] _wallHits = new RaycastHit2D[5];
 
+    [SerializeField]
+    private AudioClip fallSoundFX;
     private Vector2 WallCheckDirection =>
         gameObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left;
 
@@ -24,6 +26,10 @@ public class TouchingDirections : MonoBehaviour
         get => _isGrounded;
         set
         {
+            if (_isGrounded != value && !_isGrounded)
+            {
+                SoundFXManager.Instance.PlaySoundFXClip(fallSoundFX, transform, 1f);
+            }
             _isGrounded = value;
             _animator.SetBool("isGrounded", value);
         }
