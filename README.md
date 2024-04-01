@@ -1,20 +1,20 @@
 # Cave Dwellers
 
-## Descripción
+## Description
 
-Te adentras en una oscura cueva en busca de riquezas sin saber de los peligros que te esperan allí dentro. Al entrar el camino se derrumba detras tuyo y no te queda más opción que seguir adelante, pero mientras más avanzas sientes que la oscuridad se vuelve más pesada a tu alrededor.
+You enter a dark cave in search of riches without knowing the dangers that await you there. As you cross the entrance the path collapses behind you and leaving you no choice but to continue forward, but the further you go the heavier the darkness becomes around you.
 
-**Según pasa el tiempo la luz de tu lampara se acaba, si te quedas en total oscuridad no tendras escapatoria.**
+**As time passes the light from your lamp runs out, if you are left in total darkness you will have no escape.**
 
-## Controles
+## Controls
 
-**Movimiento** A y D.
+**Movement** A and D.
 
-**Salto** Barra espaciadora, se puede sostener para saltar más alto.
+**Jump** Space bar, can be held to jump higher.
 
-**Dash** Shift Izquierdo.
+**Dash** Left Shift.
 
-## Imágenes
+## Images
 
 ![Screenshot 1](/Assets/PreviewImages/cave_dwellers_img_1.png?raw=true)
 
