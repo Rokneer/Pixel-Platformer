@@ -57,5 +57,5 @@
     "Temp/": true
   },
   "dotnet.defaultSolution": "Pixel-Platformer.sln",
-  "workbench.colorTheme": "eppz!"
+  "workbench.colorTheme": "Dracula At Night"
 }
