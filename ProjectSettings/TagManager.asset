@@ -10,6 +10,7 @@ TagManager:
   - Energy
   - Coin
   - Gem
+  - LampLight
   layers:
   - Default
   - TransparentFX
@@ -42,7 +43,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Minimap
   m_SortingLayers:
   - name: Default
     uniqueID: 0
