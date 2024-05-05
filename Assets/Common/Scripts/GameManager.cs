@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
     public bool hasWon = false;
     public GameObject gameOverUI;
     public GameObject playerUI;
+    public TextMeshProUGUI totalCoinText;
 
     private void Awake()
     {
@@ -25,9 +27,17 @@ public class GameManager : MonoBehaviour
     {
         if (!PlayerController.Instance.IsAlive && !gameOverUI.activeSelf)
         {
-            gameOverUI.SetActive(true);
-            playerUI.SetActive(false);
-            PauseManager.Instance.ManageMouseVisibility(true);
+            ActivateGameOverUI();
         }
+    }
+
+    public void ActivateGameOverUI()
+    {
+        gameOverUI.SetActive(true);
+        playerUI.SetActive(false);
+        PauseManager.Instance.ManageMouseVisibility(true);
+        TimeManager.Instance.DisplayTime();
+        totalCoinText.text = PlayerManager.Instance.Coins.ToString();
+        PauseManager.Instance.PauseGame();
     }
 }

@@ -21,8 +21,8 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevel(int ID)
     {
-        PauseManager.Instance.ResumeGame();
         SceneManager.LoadSceneAsync(ID);
+        PauseManager.Instance.ResumeGame();
     }
 
     public void ResetCurrentLevel()

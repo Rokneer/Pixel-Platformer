@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     private TouchingDirections _touchingDirections;
     private Damageable _damageable;
 
+    public GameObject pauseMenu;
+
     [Header("Movement")]
     public float walkSpeed = 5f;
     public float airSpeed = 4f;
@@ -42,10 +44,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private AudioClip dashReadySoundFX;
 
-    [Header("Map")] 
+    [Header("Map")]
+    [SerializeField]
+    private GameObject map;
+
     [SerializeField]
     private GameObject miniMap;
+
     [SerializeField]
+    [Header("Movement")]
     private bool _isMoving = false;
     public bool IsMoving
     {
@@ -118,6 +125,13 @@ public class PlayerController : MonoBehaviour
     public bool CanMove => _animator.GetBool("canMove");
     public bool IsAlive => _animator.GetBool("isAlive");
 
+    private PlayerInput playerInput;
+    private InputAction moveAction;
+    private InputAction jumpAction;
+    private InputAction dashAction;
+    private InputAction mapAction;
+    private InputAction pauseAction;
+
     #region Lifecycle
     void Awake()
     {
@@ -135,6 +149,33 @@ public class PlayerController : MonoBehaviour
         _touchingDirections = GetComponent<TouchingDirections>();
         _damageable = GetComponent<Damageable>();
         _dashRechargeParticles = GetComponent<ParticleSystem>();
+
+        playerInput = GetComponent<PlayerInput>();
+        moveAction = playerInput.actions["Move"];
+        jumpAction = playerInput.actions["Jump"];
+        dashAction = playerInput.actions["Dash"];
+        mapAction = playerInput.actions["Map"];
+        pauseAction = playerInput.actions["Pause"];
+    }
+
+    private void Start()
+    {
+        jumpAction.started += OnJump;
+        jumpAction.canceled += OnJump;
+        dashAction.started += OnDash;
+        mapAction.started += OnMap;
+        mapAction.canceled += OnMap;
+        pauseAction.started += OnPause;
+    }
+
+    private void OnDisable()
+    {
+        jumpAction.started -= OnJump;
+        jumpAction.canceled -= OnJump;
+        dashAction.started -= OnDash;
+        mapAction.started -= OnMap;
+        mapAction.canceled -= OnMap;
+        pauseAction.started -= OnPause;
     }
 
     private void Update()
@@ -152,6 +193,7 @@ public class PlayerController : MonoBehaviour
         {
             _rb.velocity = new(_moveInput.x * CurrentMoveSpeed, _rb.velocity.y);
         }
+        Movement();
         _animator.SetFloat("yVelocity", _rb.velocity.y);
     }
     #endregion
@@ -173,11 +215,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    public void Movement()
     {
-        if (IsAlive)
+        if (IsAlive && !PauseManager.Instance.IsPaused)
         {
-            _moveInput = context.ReadValue<Vector2>();
+            _moveInput = moveAction.ReadValue<Vector2>();
             IsMoving = _moveInput != Vector2.zero;
             SetFacingDirection(_moveInput);
         }
@@ -210,19 +252,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnMap(InputAction.CallbackContext context)
-    {
-        
-        if (context.started)
-        {
-            miniMap.SetActive(true);
-        }
-        if (context.canceled)
-        {
-            miniMap.SetActive(false);
-        }
-    }
-
     public void OnDash(InputAction.CallbackContext context)
     {
         if (context.started && CanDash && IsAlive)
@@ -243,6 +272,39 @@ public class PlayerController : MonoBehaviour
         SoundFXManager.Instance.PlaySoundFXClip(dashReadySoundFX, transform, 1f);
         _dashRechargeParticles.Play();
         CanDash = true;
+    }
+
+    public void OnMap(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            miniMap.SetActive(false);
+            map.SetActive(true);
+        }
+        if (context.canceled)
+        {
+            miniMap.SetActive(true);
+            map.SetActive(false);
+        }
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.started && PauseManager.Instance.canPause)
+        {
+            if (!PauseManager.Instance.IsPaused)
+            {
+                pauseMenu.SetActive(true);
+                PauseManager.Instance.PauseGame();
+                PauseManager.Instance.ManageMouseVisibility(true);
+            }
+            else if (PauseManager.Instance.IsPaused)
+            {
+                pauseMenu.SetActive(false);
+                PauseManager.Instance.ResumeGame();
+                PauseManager.Instance.ManageMouseVisibility(false);
+            }
+        }
     }
 
     public void OnHit(int damage, Vector2 knockback)

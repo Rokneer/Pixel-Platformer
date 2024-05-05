@@ -5,10 +5,22 @@ public class PauseManager : MonoBehaviour
     private static PauseManager _instance;
     public static PauseManager Instance => _instance;
 
-    public static bool isPaused = false;
+    private bool _isPaused = false;
+    public bool IsPaused
+    {
+        get => _isPaused;
+        set
+        {
+            _isPaused = value;
+            TimeManager.Instance.isTimerActive = value;
+        }
+    }
+
+    public bool canPause = true;
 
     private void Awake()
     {
+        _isPaused = false;
         if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
@@ -21,13 +33,13 @@ public class PauseManager : MonoBehaviour
 
     public void PauseGame()
     {
-        isPaused = true;
+        IsPaused = true;
         Time.timeScale = 0;
     }
 
     public void ResumeGame()
     {
-        isPaused = false;
+        IsPaused = false;
         Time.timeScale = 1;
     }
 

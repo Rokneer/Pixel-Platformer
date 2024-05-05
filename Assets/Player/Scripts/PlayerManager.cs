@@ -10,13 +10,15 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Instance => _instance;
     private Health _healthPool;
     private LampController _lampEnergy;
+    private TimeManager _timeManager;
 
     public Image playerImage;
     public List<Sprite> playerSprites = new();
     public Image healthImage;
     public List<Sprite> healthSprites = new();
     public Sprite emptySprite;
-    public TextMeshProUGUI coinText;
+    public TextMeshProUGUI playerCoinText;
+    public TextMeshProUGUI totalCoinText;
     public int maxCoinValue = 99;
     public Transform currentCheckpoint;
 
@@ -55,7 +57,7 @@ public class PlayerManager : MonoBehaviour
         set
         {
             _coins = Mathf.Clamp(value, 0, maxCoinValue);
-            coinText.text = value.ToString();
+            playerCoinText.text = value.ToString();
         }
     }
 
@@ -127,10 +129,8 @@ public class PlayerManager : MonoBehaviour
 
     private bool ActivateLevelCompleteUI()
     {
-        GameManager.Instance.gameOverUI.SetActive(true);
         GameManager.Instance.gameOverUI.GetComponentInChildren<TextMeshProUGUI>().text = "Winner";
-        PauseManager.Instance.ManageMouseVisibility(true);
-        PauseManager.Instance.PauseGame();
+        GameManager.Instance.ActivateGameOverUI();
         return true;
     }
 
