@@ -42,6 +42,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private AudioClip dashReadySoundFX;
 
+    [Header("Map")] 
+    [SerializeField]
+    private GameObject miniMap;
     [SerializeField]
     private bool _isMoving = false;
     public bool IsMoving
@@ -204,6 +207,19 @@ public class PlayerController : MonoBehaviour
                 _rb.velocity = new(_rb.velocity.x, _rb.velocity.y * 0.6f);
                 CoyoteTimeCounter = 0f;
             }
+        }
+    }
+
+    public void OnMap(InputAction.CallbackContext context)
+    {
+        
+        if (context.started)
+        {
+            miniMap.SetActive(true);
+        }
+        if (context.canceled)
+        {
+            miniMap.SetActive(false);
         }
     }
 
