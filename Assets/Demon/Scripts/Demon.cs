@@ -52,7 +52,7 @@ public class Demon : MonoBehaviour
     public bool CanMove => _animator.GetBool("canMove");
 
     #region Lifecycle
-    void Awake()
+    private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
@@ -60,7 +60,7 @@ public class Demon : MonoBehaviour
         _damageable = GetComponent<Damageable>();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (_touchingDirections.IsGrounded && _touchingDirections.IsOnWall)
         {

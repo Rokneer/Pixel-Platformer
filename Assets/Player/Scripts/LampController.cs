@@ -92,7 +92,7 @@ public class LampController : MonoBehaviour
         _healthPool = GetComponentInParent<Damageable>();
     }
 
-    void Update()
+    private void Update()
     {
         LightTimer -= Time.deltaTime;
     }

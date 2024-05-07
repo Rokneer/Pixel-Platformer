@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour
     private InputAction pauseAction;
 
     #region Lifecycle
-    void Awake()
+    private void Awake()
     {
         if (_instance != null && _instance != this)
         {

@@ -16,7 +16,6 @@ public class LevelManager : MonoBehaviour
         {
             _instance = this;
         }
-        Cursor.lockState = CursorLockMode.Confined;
     }
 
     public void LoadLevel(int ID)

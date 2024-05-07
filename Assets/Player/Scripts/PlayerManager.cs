@@ -10,7 +10,6 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Instance => _instance;
     private Health _healthPool;
     private LampController _lampEnergy;
-    private TimeManager _timeManager;
 
     public Image playerImage;
     public List<Sprite> playerSprites = new();

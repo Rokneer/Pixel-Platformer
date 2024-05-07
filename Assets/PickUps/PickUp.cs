@@ -5,7 +5,7 @@ public class PickUp : MonoBehaviour
     [SerializeField]
     private AudioClip pickUpSoundFX;
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<PlayerManager>(out PlayerManager manager))
         {
