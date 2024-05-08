@@ -13,7 +13,6 @@ public class SettingsMenu : MonoBehaviour
 
     private void Awake()
     {
-        Screen.fullScreen = options.isFullscreen;
         isFullScreen = options.isFullscreen;
         fullscreenToggle.isOn = options.isFullscreen;
         Cursor.lockState = CursorLockMode.Confined;
